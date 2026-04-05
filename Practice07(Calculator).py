@@ -119,6 +119,7 @@ def calculation(Equation_input:str):
         if i < len(Equation)-1 and (Equation[i] == "o" and Equation[i+1] == "f"):
             Equation_list.append("*")
 
+
     if Equation_list[-1] == "":
         Equation_list.pop(-1)
 
@@ -262,21 +263,11 @@ def calculation(Equation_input:str):
     else: return Solution 
 
             
-def power(exponent:int,base:str):
+def power(exponent:float,base:str):
 
     base = float(calculation(base))
 
-    Solution = float("1")
-    if exponent > 0:
-        for i in range(0,exponent):
-            Solution = Solution * base
-    elif exponent == 0:
-        Solution = 1
-    elif exponent < 0:
-        for i in range(0,-exponent):
-            Solution = Solution * base
-        Solution = 1/Solution
-
+    Solution = base**exponent
    
     if float(int(Solution)) == Solution:
         return int(Solution)
@@ -302,9 +293,10 @@ def factor(Value:int):
         return ("Every non-Zero are factors of 0")
     
     Factors = list()
-    for i in range(1,Value+1):
+    for i in range(1,int(Value**0.5)+1):
         if Value % i == 0:
             Factors.append(i)
+            Factors.append(Value//i)
     for i in range(0,len(Factors)):
         Factors.append(-Factors[i])
     
@@ -316,7 +308,8 @@ def isPrime(Value:int):
         raise Exception("Only Natural numbers can be Prime")
     if Value == 1:
         raise Exception("1 is not a prime number")
-    for i in range(2,Value):
+    for i in range(2,int(Value**0.5)+1):
         if Value % i == 0 and Value != i:
             return False
     return True
+
