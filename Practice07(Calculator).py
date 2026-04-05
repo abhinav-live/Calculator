@@ -34,6 +34,15 @@ def calculation(Equation_input:str):
                     raise Exception("operator error found")
                 
        
+    def exp(Equation_list):
+        while "^" in Equation_list:
+            for i in range(len(Equation_list)-2, 0, -1):
+                if Equation_list[i] == "^":
+                    Equation_list[i] = power(float(Equation_list[i+1]),str(Equation_list[i-1]))
+                    Equation_list.pop(i+1)
+                    Equation_list.pop(i-1)
+                    break    
+
 
             
     def multi_divi(Equation_list):
@@ -63,8 +72,10 @@ def calculation(Equation_input:str):
 
     def Calc(Equation_list):
         while len(Equation_list) >1 and not set(Equation_list).isdisjoint(op_list):
+            
             if not set(Equation_list).isdisjoint(add_sub_list):
                 do_add_sub(Equation_list)
+            exp(Equation_list)
             if not set(Equation_list).isdisjoint(op_op_list):
                 op_op(Equation_list)
             if not set(Equation_list).isdisjoint(multi_divi_list) and set(Equation_list).isdisjoint(op_op_list) and set(Equation_list).isdisjoint(add_sub_list):
@@ -79,8 +90,8 @@ def calculation(Equation_input:str):
 
     #Finding Numbers
     digits= ["0","1","2","3","4",'5','6','7','8',"9","."]
-    op_list = ["++","+-","--","-+","/+","-/","+/","/-","*/","/*","*+","+*","*-","-*","+","-","/","*"]
-    opbr_list = ["++","+-","--","-+","/+","-/","+/","/-","*/","/*","*+","+*","*-","-*","+","-","/","*","(",")"]
+    op_list = ["++","+-","--","-+","/+","-/","+/","/-","*/","/*","*+","+*","*-","-*","+","-","/","*","^"]
+    opbr_list = ["++","+-","--","-+","/+","-/","+/","/-","*/","/*","*+","+*","*-","-*","+","-","/","*","(",")","^"]
     op_op_list = ["++","+-","--","-+","/+","-/","+/","/-","*/","/*","*+","+*","*-","-*"]
     add_sub_list = ["+","-"]
     multi_divi_list =["*","/"]
@@ -118,6 +129,8 @@ def calculation(Equation_input:str):
             Equation_list.append("-")            
         if i < len(Equation)-1 and (Equation[i] == "o" and Equation[i+1] == "f"):
             Equation_list.append("*")
+        if Equation[i] == "^":
+            Equation_list.append("^")
 
 
     if Equation_list[-1] == "":
@@ -257,7 +270,7 @@ def calculation(Equation_input:str):
         Solution = Equation_list[0]
 
 
-
+    Solution = float(Solution)
     if float(int(Solution)) == Solution:
         return int(Solution)
     else: return Solution 
@@ -312,4 +325,3 @@ def isPrime(Value:int):
         if Value % i == 0 and Value != i:
             return False
     return True
-
