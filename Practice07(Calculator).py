@@ -309,8 +309,7 @@ def factor(Value:int):
     for i in range(1,int(Value**0.5)+1):
         if Value % i == 0:
             Factors.append(i)
-            if Value != Value//i:
-                Factors.append(Value//i)
+            Factors.append(Value//i)
     for i in range(0,len(Factors)):
         Factors.append(-Factors[i])
     
